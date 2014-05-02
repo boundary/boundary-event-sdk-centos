@@ -61,7 +61,7 @@ sudo yum install -y curl unzip >> $LOG 2>&1
 # Required packages for Boundary Event SDK
 #
 log "Install required packages for Boundary Event SDK..."
-sudo yum install -y java-1.7.0-openjdk git >> $LOG 2>&1
+sudo yum install -y java-1.7.0-openjdk java-1.7.0-openjdk-devel git >> $LOG 2>&1
 
 # Add Java bin directory in the path
 echo "" >> ${HOME}/.bash_profile
@@ -103,6 +103,8 @@ bash bootstrap.sh  >> $SDK_LOG 2>&1
 source bsdk-env.sh  >> $SDK_LOG 2>&1
 mvn install >> $SDK_LOG 2>&1
 popd  >> $SDK_LOG 2>&1
+
+chown -R vagrant:vagrant boundary-event-sdk
 
 NAGIOS_FILE=$HOME/nagios
 
