@@ -60,7 +60,7 @@ sudo rpm -ivh http://mirrors.mit.edu/epel/6/x86_64/epel-release-6-8.noarch.rpm >
 # Required packages for Boundary Event SDK
 #
 log "Install required packages for Boundary Event SDK..."
-sudo yum install -y java-1.7.0-openjdk java-1.7.0-openjdk-devel git curl unzip autoconf gcc libtool make >> $LOG 2>&1
+sudo yum install -y java-1.7.0-openjdk java-1.7.0-openjdk-devel git curl unzip autoconf gcc libtool make net-snmp.x86_64 >> $LOG 2>&1
 
 # Add Java bin directory in the path
 echo "" >> ${HOME}/.bash_profile
