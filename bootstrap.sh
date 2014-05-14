@@ -60,7 +60,7 @@ sudo rpm -ivh http://mirrors.mit.edu/epel/6/x86_64/epel-release-6-8.noarch.rpm >
 # Required packages for Boundary Event SDK
 #
 log "Install required packages for Boundary Event SDK..."
-sudo yum install -y java-1.7.0-openjdk java-1.7.0-openjdk-devel git curl unzip autoconf gcc libtool make net-snmp.x86_64 >> $LOG 2>&1
+sudo yum install -y java-1.7.0-openjdk java-1.7.0-openjdk-devel git curl unzip autoconf gcc libtool make net-snmp.x86_64 net-snmp-utils.x86_64 >> $LOG 2>&1
 
 # Add Java bin directory in the path
 echo "" >> ${HOME}/.bash_profile
@@ -99,10 +99,15 @@ source $HOME/.bash_profile
 
 git clone https://github.com/boundary/boundary-event-sdk.git > $SDK_LOG 2>&1
 pushd boundary-event-sdk >> $SDK_LOG 2>&1
-bootstrap.sh >> $SDK_LOG 2>&1
-bash bootstrap.sh  >> $SDK_LOG 2>&1
+bash setup.sh  >> $SDK_LOG 2>&1
 mvn install >> $SDK_LOG 2>&1
 popd  >> $SDK_LOG 2>&1
 
 chown -R vagrant:vagrant boundary-event-sdk
+
+# Configure rsyslog
+
+log "Configure syslog ..."
+sudo su -c "echo '*.*' @localhost:1514 >> /etc/rsyslog.conf" > $SDK_LOG 2>&1
+sudo service rsyslog restart > $SDK_LOG 2>&1
 
