@@ -48,7 +48,7 @@ mkdir -p ${TOOLS_DIR}
 # Packages for sane administration
 #
 log "Install system adminstration packages..."
-sudo yum install -y man wget >> $LOG 2>&1
+sudo yum install -y man wget which bind-utils >> $LOG 2>&1
 
 log "Install EPEL gpg keys and package..."
 wget https://fedoraproject.org/static/0608B895.txt >> $LOG 2>&1
