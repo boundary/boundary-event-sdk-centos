@@ -23,9 +23,9 @@ addUser() {
 # Add the sdk user and groups
 #
 log "Add required users and groups..."
-sudo groupadd ${group} >> $LOG 2>&1
-sudo useradd ${user} >> $LOG 2>&1
-echo "${password}" | sudo passwd ${user} --stdin >> $LOG 2>&1
+sudo groupadd ${group} 
+sudo useradd ${user} 
+echo "${password}" | sudo passwd ${user} --stdin 
 }
 
 #
@@ -48,7 +48,7 @@ mkdir -p ${TOOLS_DIR}
 # Packages for sane administration
 #
 log "Install system adminstration packages..."
-sudo yum install -y man wget which bind-utils >> $LOG 2>&1
+sudo yum install -y man wget which file bind-utils >> $LOG 2>&1
 
 log "Install EPEL gpg keys and package..."
 wget https://fedoraproject.org/static/0608B895.txt >> $LOG 2>&1
@@ -110,4 +110,7 @@ chown -R vagrant:vagrant boundary-event-sdk
 log "Configure syslog ..."
 sudo su -c "echo '*.*' @localhost:1514 >> /etc/rsyslog.conf" >> $SDK_LOG 2>&1
 sudo service rsyslog restart >> $SDK_LOG 2>&1
+
+# Install the Boundary Meter
+
 
