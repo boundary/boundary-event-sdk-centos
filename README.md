@@ -27,14 +27,14 @@ Saves the state of the VM on disk so it can be resumed later
 
 1. Safely shutdown the virtual machine
 
-     ```vagrant suspend```
+     ```$ vagrant suspend```
 
 ### Resume
 Restarts VM from its preserved state.
 
 1. Resume a previously shutdown virtual machine
 
-     ```vagrant resume```
+     ```$ vagrant resume```
 
 ### Shutdown
 Completely destroys the VM and it state, but it also
@@ -48,17 +48,20 @@ frees up all the disk usage associated with the VM instance.
 
 1. Start the virtual machine:
 
-     ```vagrant up```
+     ```$ vagrant up```
 
 2. Login to the virtual machine:
 
-     ````vagrant ssh```
+     ``` vagrant ssh```
 
+3. Change directory the Boundary Event SDK source tree:
 
+     ```[vagrant@localhost ~]$ cd boundary-event-sdk```
 
+4. Setup the build environment:
 
+     ```[vagrant@localhost ~]$ bash setup.sh```
 
+5. Build and assembly distribution:
 
-
-
-
+     ```[vagrant@localhost ~]$ mvn assembly:assembly```
