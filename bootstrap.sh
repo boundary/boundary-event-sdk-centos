@@ -1,7 +1,5 @@
 #!/usr/bin/env bash 
 
-
-
 #
 # Setup variable to track installation logging
 #
@@ -112,5 +110,4 @@ sudo su -c "echo '*.*' @localhost:1514 >> /etc/rsyslog.conf" >> $SDK_LOG 2>&1
 sudo service rsyslog restart >> $SDK_LOG 2>&1
 
 # Install the Boundary Meter
-
 
