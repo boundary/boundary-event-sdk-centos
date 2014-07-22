@@ -5,6 +5,23 @@
 #
 LOG="$PWD/install.log"
 
+#
+# Determine the target platform
+#
+case $(cat /proc/version | tr '[:lower:]' '[:upper:]' | tr ' ' '_') in
+*UBUNTU*)
+  sdk_target=UBUNTU
+  ;;
+*RED_HAT*)
+  sdk_target=RED_HAT
+  ;;
+*)
+  echo "Unknown SDK Target exiting"
+  exit 1
+  ;;
+esac
+
+
 # Explicitly set the HOME variable
 export HOME=~vagrant
 
