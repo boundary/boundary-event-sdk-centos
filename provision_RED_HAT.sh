@@ -1,19 +1,6 @@
 #!/usr/bin/env bash 
 
-#
-# Setup variable to track installation logging
-#
-LOG="$PWD/install.log"
-
-# Explicitly set the HOME variable
-export HOME=~vagrant
-
-log() {
-  typeset -r msg=$1
-  echo "$(date): $msg"
-}
-
-addUser() {
+addUser_RED_HAT() {
   typeset -r user=$1
   typeset -r group=$1
   typeset -r password=$1
@@ -21,38 +8,64 @@ addUser() {
 # Add the sdk user and groups
 #
 log "Add required users and groups..."
-sudo groupadd ${group} 
-sudo useradd ${user} 
-echo "${password}" | sudo passwd ${user} --stdin 
+
+sudo groupadd ${group}
+sudo useradd ${user}
+echo "${password}" | sudo passwd ${user} --stdin
 }
 
+
+update_packages_RED_HAT() {
 #
 # Update packages 
 #
-log "Updating packages..."
 sudo yum update >> $LOG 2>&1
+}
 
 #
 # Create standard directories
 #
-DOWNLOADS_DIR=/downloads
-TOOLS_DIR=${HOME}/tools
-mkdir -p ${DOWNLOADS_DIR}
+#DOWNLOADS_DIR=/downloads
+#TOOLS_DIR=${HOME}/tools
+#mkdir -p ${DOWNLOADS_DIR}
 
 # Create a directory to install all local non-RPM distributions
-mkdir -p ${TOOLS_DIR}
+#mkdir -p ${TOOLS_DIR}
 
-#
-# Packages for sane administration
-#
-log "Install system adminstration packages..."
-sudo yum install -y man wget which file bind-utils >> $LOG 2>&1
+install_boundary_sdk_packages_RED_HAT() {
 
 log "Install EPEL gpg keys and package..."
 wget https://fedoraproject.org/static/0608B895.txt >> $LOG 2>&1
 sudo mv 0608B895.txt /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6 >> $LOG 2>&1
 sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6 >> $LOG 2>&1
 sudo rpm -ivh http://mirrors.mit.edu/epel/6/x86_64/epel-release-6-8.noarch.rpm >> $LOG 2>&1
+
+#
+# Required packages for Boundary Event SDK
+#
+sudo yum install -y java-1.7.0-openjdk java-1.7.0-openjdk-devel git curl unzip autoconf gcc libtool make net-snmp.x86_64 net-snmp-utils.x86_64 rpm-build >> $LOG 2>&1
+
+# Add Java bin directory in the path
+echo "" >> ${HOME}/.bash_profile
+echo '# java configuration' >> ${HOME}/.bash_profile
+echo 'JAVA_HOME="/usr/lib/jvm/java-1.7.0"' >> ${HOME}/.bash_profile
+echo 'export JAVA_HOME ' >> ${HOME}/.bash_profile
+echo "" >> ${HOME}/.bash_profile
+
+}
+
+
+#
+# Packages for sane administration
+#
+#log "Install system adminstration packages..."
+#sudo yum install -y man wget which file bind-utils >> $LOG 2>&1
+
+#log "Install EPEL gpg keys and package..."
+#wget https://fedoraproject.org/static/0608B895.txt >> $LOG 2>&1
+#sudo mv 0608B895.txt /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6 >> $LOG 2>&1
+#sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6 >> $LOG 2>&1
+#sudo rpm -ivh http://mirrors.mit.edu/epel/6/x86_64/epel-release-6-8.noarch.rpm >> $LOG 2>&1
 
 #
 # Required packages for Boundary Event SDK
