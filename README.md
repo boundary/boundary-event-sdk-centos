@@ -9,6 +9,20 @@ release of the Boundary Event SDK
 - Vagrant (http://www.vagrantup.com/downloads.html) version 1.6.3 or later
 - Virtualbox (https://www.virtualbox.org/wiki/Downloads) version 4.3.10 or later
 
+## Disable SDK Installation
+
+To disable the installation of the sdk run the following command in the cloned git respository:
+
+```
+touch no-boundary-sdk
+```
+
+To enable,after disabling run the following command in the cloned git respository:
+
+```
+rm no-boundary-sdk
+```
+
 ## Basic Commands
 
 Simple command line operations for those not familar with using Vagrant
