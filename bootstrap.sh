@@ -80,6 +80,8 @@ sudo yum install -y java-1.7.0-openjdk java-1.7.0-openjdk-devel git curl unzip a
 
 [ -e no-boundary-sdk ] && exit 0
 
+exit 0
+
 # Add Java bin directory in the path
 echo "" >> ${HOME}/.bash_profile
 echo '# java configuration' >> ${HOME}/.bash_profile
