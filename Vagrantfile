@@ -29,6 +29,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", protocol: "udp", guest: 161, host: 9161
   config.vm.network "forwarded_port", protocol: "udp", guest: 162, host: 9162
 
+  config.vm.provider "virtualbox" do |v|
+     v.memory = 1024
+     v.cpus = 2
+  end
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
